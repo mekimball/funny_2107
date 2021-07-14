@@ -1,22 +1,25 @@
 class OpenMic
-  attr_reader :location,
-              :date,
-              :performers
+attr_reader :location, :date
 
-  def initialize(attributes)
-    @location = attributes[:location]
-    @date = attributes[:date]
+  def initialize(location:, date:)
+    @location = location
+    @date = date
     @performers = []
+    @repeated_jokes = false
   end
 
   def welcome(user)
     @performers << user
   end
 
+  def performers
+    @performers
+  end
+
   def repeated_jokes?
-    jokes = @performers.map do |user|
-      user.jokes
-    end.flatten
-    jokes.length != jokes.uniq.length
+    @repeated_jokes
+    @jokes.detect do |joke|
+      joke.id == @jokes.id
+    end
   end
 end
